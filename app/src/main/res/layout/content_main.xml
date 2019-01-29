@@ -9,12 +9,92 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="272dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/WeekOverview"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/WeekOverview"
+        android:layout_width="117dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Week in Workouts"
+        app:layout_constraintBottom_toTopOf="@+id/Monday"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Monday"
+        android:layout_width="117dp"
+        android:layout_height="59dp"
+        android:layout_marginEnd="8dp"
+        android:text="Monday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="77dp" />
+
+    <TextView
+        android:id="@+id/Tuesday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:text="Tuesday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <TextView
+        android:id="@+id/Wednesday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:text="Wednesday"
+        tools:layout_editor_absoluteX="290dp"
+        tools:layout_editor_absoluteY="197dp" />
+
+    <TextView
+        android:id="@+id/Thursday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:text="Thursday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/Friday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:text="Friday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="319dp" />
+
+    <TextView
+        android:id="@+id/Saturday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:text="Saturday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="380dp" />
+
+    <TextView
+        android:id="@+id/Sunday"
+        android:layout_width="114dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="8dp"
+        android:text="Sunday"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="441dp" />
 
 </android.support.constraint.ConstraintLayout>
