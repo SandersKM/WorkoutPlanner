@@ -9,92 +9,92 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
-        android:layout_width="272dp"
-        android:layout_height="81dp"
+        android:id="@+id/textView"
+        android:layout_width="384dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/WeekOverview"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/WeekOverview"
-        android:layout_width="117dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Week in Workouts"
-        app:layout_constraintBottom_toTopOf="@+id/Monday"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/Monday"
-        android:layout_width="117dp"
-        android:layout_height="59dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="380dp"
+        android:layout_height="789dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="18dp"
+        android:layout_height="880dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="174dp"
+        android:layout_height="797dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Monday"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="77dp" />
+        app:layout_constraintStart_toEndOf="@+id/divider" />
 
     <TextView
-        android:id="@+id/Tuesday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="8dp"
-        android:text="Tuesday"
+        android:id="@+id/textView2"
+        android:layout_width="179dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/divider5"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="136dp" />
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/Wednesday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
-        android:text="Wednesday"
-        tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="197dp" />
-
-    <TextView
-        android:id="@+id/Thursday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="8dp"
-        android:text="Thursday"
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="386dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="206dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="258dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/Friday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="177dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="415dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:text="Friday"
+        android:layout_marginBottom="13dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="319dp" />
-
-    <TextView
-        android:id="@+id/Saturday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="8dp"
-        android:text="Saturday"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="380dp" />
-
-    <TextView
-        android:id="@+id/Sunday"
-        android:layout_width="114dp"
-        android:layout_height="61dp"
-        android:layout_marginEnd="8dp"
-        android:text="Sunday"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="441dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </android.support.constraint.ConstraintLayout>
