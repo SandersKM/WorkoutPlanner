@@ -9,69 +9,72 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Todays_workout_header"
         android:layout_width="384dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_green_dark"
         android:text="@string/today_s_workout"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/todays_workout_list"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/todays_workout_list"
         android:layout_width="380dp"
-        android:layout_height="789dp"
+        android:layout_height="757dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Todays_workout_header" />
 
     <View
         android:id="@+id/divider"
-        android:layout_width="18dp"
-        android:layout_height="880dp"
+        android:layout_width="8dp"
+        android:layout_height="829dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/Upcoming_workout_header"
+        app:layout_constraintStart_toEndOf="@+id/Todays_workout_header"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/Upcoming_workout_list"
         android:layout_width="174dp"
-        android:layout_height="797dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="758dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/divider" />
+        app:layout_constraintStart_toEndOf="@+id/todays_workout_list" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Upcoming_workout_header"
         android:layout_width="179dp"
         android:layout_height="64dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="3dp"
+        android:background="@android:color/holo_green_dark"
         android:text="@string/upcoming_workouts"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/divider5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/Todays_workout_header"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -82,10 +85,10 @@
         android:layout_marginEnd="206dp"
         android:layout_marginBottom="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/todays_workout_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/Todays_workout_header" />
 
     <View
         android:id="@+id/divider5"
@@ -96,9 +99,25 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="13dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
+        app:layout_constraintBottom_toTopOf="@+id/Upcoming_workout_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/Upcoming_workout_header" />
+
+    <Button
+        android:id="@+id/add_workout_button"
+        android:layout_width="583dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/holo_green_dark"
+        android:text="Add New Workout"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Upcoming_workout_list" />
 
 </android.support.constraint.ConstraintLayout>
