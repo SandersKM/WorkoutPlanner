@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.List;
 
@@ -13,14 +14,17 @@ public class AddWorkoutScreen extends AppCompatActivity {
     // Back button is not really needed
     private Button goBack;
 
-    private ListView listView;
+    private Spinner muscleGroups;
+    private ListView exercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
-        this.listView = (ListView) findViewById(R.id.listView);
+        this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
+        this.exercises = (ListView) findViewById(R.id.exerciseSelector);
         showMuscleGroups();
+        showExercises();
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +42,20 @@ public class AddWorkoutScreen extends AppCompatActivity {
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, muscleGroups);
-        this.listView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, muscleGroups);
+        this.muscleGroups.setAdapter(adapter);
+    }
+
+    private void showExercises() {
+        DatabaseAccess databaseAccess;
+        databaseAccess = DatabaseAccess.getInstance(this, null);
+
+        databaseAccess.open();
+        List<String> exercises = databaseAccess.getExercises("Back");
+        databaseAccess.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, exercises);
+        this.exercises.setAdapter(adapter);
     }
 }
 // Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls

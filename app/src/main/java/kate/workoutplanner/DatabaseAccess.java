@@ -62,13 +62,28 @@ public class DatabaseAccess {
     }
 
     /**
-     * Read all quotes from the database.
      *
-     * @return a List of quotes
+     * @return a List of muscle Groups
      */
     public List<String> getMuscleGroups() {
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT muscle_group FROM exercises", null);
+        Cursor cursor = database.rawQuery("SELECT DISTINCT muscle_group FROM exercises", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    /**
+     *
+     * @return a List of muscle Groups
+     */
+    public List<String> getExercises(String muscleGroup) {
+        List<String> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery("SELECT exercise FROM exercises WHERE muscle_group = 'Back'", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
