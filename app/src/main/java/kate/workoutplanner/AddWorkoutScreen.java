@@ -42,7 +42,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, muscleGroups);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, muscleGroups);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.muscleGroups.setAdapter(adapter);
     }
 

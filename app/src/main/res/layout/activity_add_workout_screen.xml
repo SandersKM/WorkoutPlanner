@@ -37,10 +37,10 @@
         android:layout_width="145dp"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="886dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="10dp"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/exerciseSelector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
