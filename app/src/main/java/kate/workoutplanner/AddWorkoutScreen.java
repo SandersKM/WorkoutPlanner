@@ -2,7 +2,12 @@ package kate.workoutplanner;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AbsListView.MultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,18 +88,22 @@ public class AddWorkoutScreen extends AppCompatActivity {
                 }
             });
         }
+        // The following code was modified from
+        // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = new ArrayList < String >();
         final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
-                (AddWorkoutScreen.this, android.R.layout.simple_list_item_1,
+                (AddWorkoutScreen.this, android.R.layout.simple_list_item_multiple_choice,
                         AddWorkoutElements);
         workoutPlan.setAdapter(workoutSelectionAdapter);
         addToWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddWorkoutElements.add(exerciseSelected.toString());
+                AddWorkoutElements.add(exerciseSelected.toString() + "      reps:" + String.valueOf(numRepsSelected));
                 workoutSelectionAdapter.notifyDataSetChanged();
             }
         });
+        // Binds the Adapter to the ListView
+        workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
