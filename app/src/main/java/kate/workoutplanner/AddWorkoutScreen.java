@@ -7,7 +7,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,6 +20,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     private Spinner muscleGroups;
     private Spinner exercises;
+    private SeekBar reps;
+    private TextView repsNumDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,28 @@ public class AddWorkoutScreen extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
         showMuscleGroups();
+        reps = findViewById(R.id.repSelector);
+        repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
+        if (reps != null) {
+            reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    // Write code to perform some action when progress is changed.
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    // want the intermediate values...
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    // Write code to perform some action when touch is stopped.
+                    int numSelected = seekBar.getProgress();
+                    repsNumDisplay.setText(String.valueOf(numSelected));
+                }
+            });
+        }
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
