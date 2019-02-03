@@ -3,10 +3,12 @@ package kate.workoutplanner;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -22,9 +24,21 @@ public class AddWorkoutScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
-        this.exercises = (Spinner) findViewById(R.id.exerciseSelector);
+        this.muscleGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // Notify the selected item text
+
+                showExercises(selectedItemText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         showMuscleGroups();
-        showExercises();
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,12 +63,14 @@ public class AddWorkoutScreen extends AppCompatActivity {
         this.muscleGroups.setAdapter(adapter);
     }
 
-    private void showExercises() {
+    private void showExercises(String muscleGroup) {
+
+        this.exercises = (Spinner) findViewById(R.id.exerciseSelector);
         DatabaseAccess databaseAccess;
         databaseAccess = DatabaseAccess.getInstance(this, null);
 
         databaseAccess.open();
-        List<String> exercises = databaseAccess.getExercises("Back");
+        List<String> exercises = databaseAccess.getExercises(muscleGroup);
         databaseAccess.close();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exercises);

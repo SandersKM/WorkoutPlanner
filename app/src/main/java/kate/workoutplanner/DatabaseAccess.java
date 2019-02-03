@@ -83,7 +83,8 @@ public class DatabaseAccess {
      */
     public List<String> getExercises(String muscleGroup) {
         List<String> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery("SELECT exercise FROM exercises WHERE muscle_group = 'Back'", null);
+        String sqlQuery = "SELECT exercise FROM exercises WHERE muscle_group = '" + muscleGroup + "'";
+        Cursor cursor = database.rawQuery(sqlQuery, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             list.add(cursor.getString(0));
