@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -54,6 +55,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         showMuscleGroups();
         reps = findViewById(R.id.repSelector);
         repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
+        // I modified this code from
+        // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
         if (reps != null) {
             reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -111,5 +114,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.exercises.setAdapter(adapter);
     }
+
 }
 // Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls

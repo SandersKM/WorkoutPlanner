@@ -9,4 +9,7 @@
     <string name="muscle_group">Muscle Group</string>
     <string name="reps">Reps</string>
     <string name="_0">0</string>
+    <string name="button">Button</string>
+    <string name="add_exercise_to_workout">Add Exercise to Workout</string>
+    <string name="save_workout">Save Workout</string>
 </resources>
