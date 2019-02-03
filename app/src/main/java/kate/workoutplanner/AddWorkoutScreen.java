@@ -18,7 +18,9 @@ import java.util.List;
 public class AddWorkoutScreen extends AppCompatActivity {
     // Back button is not really needed
     private Button goBack;
-
+    private Button addToWorkout;
+    private Button addWorkout;
+    private ListView workoutPlan;
     private Spinner muscleGroups;
     private Spinner exercises;
     private SeekBar reps;
@@ -30,6 +32,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
+        addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
+        addWorkout = (Button) findViewById(R.id.saveWorkout);
+        workoutPlan = (ListView) findViewById(R.id.workoutSelection);
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
         // modified the following code from
         // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
@@ -77,6 +82,18 @@ public class AddWorkoutScreen extends AppCompatActivity {
                 }
             });
         }
+        final List < String > AddWorkoutElements = new ArrayList < String >();
+        final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
+                (AddWorkoutScreen.this, android.R.layout.simple_list_item_1,
+                        AddWorkoutElements);
+        workoutPlan.setAdapter(workoutSelectionAdapter);
+        addToWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddWorkoutElements.add(exerciseSelected.toString());
+                workoutSelectionAdapter.notifyDataSetChanged();
+            }
+        });
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +101,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void showMuscleGroups() {
