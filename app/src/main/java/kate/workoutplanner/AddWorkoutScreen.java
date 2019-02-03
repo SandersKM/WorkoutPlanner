@@ -22,6 +22,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private Spinner exercises;
     private SeekBar reps;
     private TextView repsNumDisplay;
+    private int numRepsSelected;
+    private String exerciseSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,17 @@ public class AddWorkoutScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                exercises = (Spinner) findViewById(R.id.exerciseSelector);
                 showExercises(selectedItemText);
+                exercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        exerciseSelected = (String) parent.getItemAtPosition(position);
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -57,8 +69,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     // Write code to perform some action when touch is stopped.
-                    int numSelected = seekBar.getProgress();
-                    repsNumDisplay.setText(String.valueOf(numSelected));
+                    numRepsSelected = seekBar.getProgress();
+                    repsNumDisplay.setText(String.valueOf(numRepsSelected));
                 }
             });
         }
@@ -88,7 +100,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     private void showExercises(String muscleGroup) {
 
-        this.exercises = (Spinner) findViewById(R.id.exerciseSelector);
         DatabaseAccess databaseAccess;
         databaseAccess = DatabaseAccess.getInstance(this, null);
 
