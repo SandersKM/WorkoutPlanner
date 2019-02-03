@@ -20,28 +20,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/exerciseSelector"
-        android:layout_width="250dp"
-        android:layout_height="850dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/goBack"
-        app:layout_constraintStart_toEndOf="@+id/muscleGroupSelector"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Spinner
         android:id="@+id/muscleGroupSelector"
         android:layout_width="145dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginBottom="700dp"
         android:spinnerMode="dropdown"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/exerciseSelector"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/exerciseSelector"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="271dp"
+        android:layout_marginBottom="700dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/muscleGroupSelector"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

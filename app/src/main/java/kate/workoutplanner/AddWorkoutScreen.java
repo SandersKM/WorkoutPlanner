@@ -15,14 +15,14 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private Button goBack;
 
     private Spinner muscleGroups;
-    private ListView exercises;
+    private Spinner exercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
-        this.exercises = (ListView) findViewById(R.id.exerciseSelector);
+        this.exercises = (Spinner) findViewById(R.id.exerciseSelector);
         showMuscleGroups();
         showExercises();
         goBack = findViewById(R.id.goBack);
@@ -57,7 +57,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         List<String> exercises = databaseAccess.getExercises("Back");
         databaseAccess.close();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, exercises);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exercises);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.exercises.setAdapter(adapter);
     }
 }
