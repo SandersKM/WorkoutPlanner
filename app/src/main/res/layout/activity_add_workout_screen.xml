@@ -24,8 +24,8 @@
         android:id="@+id/muscleGroupSelector"
         android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="700dp"
         android:spinnerMode="dropdown"
@@ -33,18 +33,99 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/exerciseSelector"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/MuscleGroupSelectorTitle" />
 
     <Spinner
         android:id="@+id/exerciseSelector"
-        android:layout_width="170dp"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="271dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="700dp"
+        android:fadingEdge="horizontal|vertical|none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/muscleGroupSelector"
+        app:layout_constraintTop_toBottomOf="@+id/ExerciseSelectorTitle" />
+
+    <SeekBar
+        android:id="@+id/repSelector"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="478dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="532dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:max="25"
+        android:progress="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RepsSelectorTitle" />
+
+    <TextView
+        android:id="@+id/MuscleGroupSelectorTitle"
+        android:layout_width="150dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="146dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/muscle_group"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/muscleGroupSelector"
+        app:layout_constraintEnd_toStartOf="@+id/ExerciseSelectorTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ExerciseSelectorTitle"
+        android:layout_width="138dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="146dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        android:text="@string/exercise"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/exerciseSelector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/MuscleGroupSelectorTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/RepsSelectorTitle"
+        android:layout_width="126dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="203dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="271dp"
+        android:layout_marginBottom="3dp"
+        android:text="Reps"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/repSelector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseSelector" />
+
+    <TextView
+        android:id="@+id/repsNumberDisplay"
+        android:layout_width="69dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="542dp"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/repSelector"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseSelector" />
+
 </android.support.constraint.ConstraintLayout>

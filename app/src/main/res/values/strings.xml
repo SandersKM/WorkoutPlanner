@@ -5,4 +5,6 @@
     <string name="today_s_workout">Today\'s Workout</string>
     <string name="add_new_workout">Add New Workout</string>
     <string name="back">Back</string>
+    <string name="exercise">Exercise</string>
+    <string name="muscle_group">Muscle Group</string>
 </resources>

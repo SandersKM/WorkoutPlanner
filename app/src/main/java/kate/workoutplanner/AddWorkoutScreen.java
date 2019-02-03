@@ -24,19 +24,16 @@ public class AddWorkoutScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
+        // modified the following code from
+        // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
         this.muscleGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                // Notify the selected item text
-
                 showExercises(selectedItemText);
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
         showMuscleGroups();
         goBack = findViewById(R.id.goBack);
