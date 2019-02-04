@@ -38,10 +38,31 @@ public class AddWorkoutScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
-        addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         addWorkout = (Button) findViewById(R.id.saveWorkout);
+        createWorkoutPlan();
+        cancelWorkout();
+    }
+
+    private void cancelWorkout(){
+        goBack = findViewById(R.id.goBack);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void createWorkoutPlan(){
         workoutPlan = (ListView) findViewById(R.id.workoutSelection);
+        workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         createNewExercise();
+        updateWorkoutPlan();
+    }
+
+    // is there a way to break this down more
+    public void updateWorkoutPlan(){
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = new ArrayList < String >();
@@ -54,19 +75,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
             public void onClick(View v) {
                 AddWorkoutElements.add(exerciseSelected.toString() + "\nreps: " + String.valueOf(numRepsSelected));
                 workoutSelectionAdapter.notifyDataSetChanged();
-            }
-        });
-        // Binds the Adapter to the ListView
-        workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        cancelWorkout();
-    }
-
-    private void cancelWorkout(){
-        goBack = findViewById(R.id.goBack);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }
