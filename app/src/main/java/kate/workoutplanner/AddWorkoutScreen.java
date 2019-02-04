@@ -41,7 +41,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         workoutPlan = (ListView) findViewById(R.id.workoutSelection);
-        addExercise();
+        createNewExercise();
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = new ArrayList < String >();
@@ -58,6 +58,10 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
         // Binds the Adapter to the ListView
         workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        cancelWorkout();
+    }
+
+    private void cancelWorkout(){
         goBack = findViewById(R.id.goBack);
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +71,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
-    private void addExercise(){
+    private void createNewExercise(){
         dropdownSelection();
         repSelection();
     }
@@ -118,20 +122,14 @@ public class AddWorkoutScreen extends AppCompatActivity {
         DatabaseAccess databaseAccess = getDatabaseAccess();
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
         databaseAccess.close();
-        // The following code was adapted from
-        // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, muscleGroups);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.muscleGroups.setAdapter(adapter);
+        this.muscleGroups.setAdapter(getArrayAdapter(muscleGroups));
     }
 
     private void showExercises(String muscleGroup) {
         DatabaseAccess databaseAccess = getDatabaseAccess();
         List<String> exercises = databaseAccess.getExercises(muscleGroup);
         databaseAccess.close();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exercises);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.exercises.setAdapter(adapter);
+        this.exercises.setAdapter(getArrayAdapter(exercises));
     }
 
     private DatabaseAccess getDatabaseAccess(){
@@ -139,6 +137,14 @@ public class AddWorkoutScreen extends AppCompatActivity {
         databaseAccess = DatabaseAccess.getInstance(this, null);
         databaseAccess.open();
         return databaseAccess;
+    }
+
+    private ArrayAdapter getArrayAdapter(List<String> display){
+        // The following code was adapted from
+        // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, display);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
     }
 
     private void repSelection() {
