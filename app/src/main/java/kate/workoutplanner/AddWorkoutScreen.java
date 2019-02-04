@@ -42,52 +42,11 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         workoutPlan = (ListView) findViewById(R.id.workoutSelection);
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
-        // modified the following code from
-        // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
-        this.muscleGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-
-                exercises = (Spinner) findViewById(R.id.exerciseSelector);
-                showExercises(selectedItemText);
-                exercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        exerciseSelected = (String) parent.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+        dropdownSelections();
         showMuscleGroups();
         reps = findViewById(R.id.repSelector);
         repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
-        // I modified this code from
-        // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
-        if (reps != null) {
-            reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    // Write code to perform some action when progress is changed.
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-                    // want the intermediate values...
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    // Write code to perform some action when touch is stopped.
-                    numRepsSelected = seekBar.getProgress();
-                    repsNumDisplay.setText(String.valueOf(numRepsSelected));
-                }
-            });
-        }
+        repSelection();
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = new ArrayList < String >();
@@ -98,7 +57,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addToWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddWorkoutElements.add(exerciseSelected.toString() + "      reps:" + String.valueOf(numRepsSelected));
+                AddWorkoutElements.add(exerciseSelected.toString() + "\nreps: " + String.valueOf(numRepsSelected));
                 workoutSelectionAdapter.notifyDataSetChanged();
             }
         });
@@ -143,5 +102,58 @@ public class AddWorkoutScreen extends AppCompatActivity {
         this.exercises.setAdapter(adapter);
     }
 
+    private void addExercise(){
+
+    }
+
+    // How do I seperate these functions?
+    private void dropdownSelections(){
+        // modified the following code from
+        // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
+        this.muscleGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+
+                exercises = (Spinner) findViewById(R.id.exerciseSelector);
+                showExercises(selectedItemText);
+                exercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        exerciseSelected = (String) parent.getItemAtPosition(position);
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void repSelection() {
+        // I modified this code from
+        // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
+        if (reps != null) {
+            reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    // Write code to perform some action when progress is changed.
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+                    // want the intermediate values...
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    // Write code to perform some action when touch is stopped.
+                    numRepsSelected = seekBar.getProgress();
+                    repsNumDisplay.setText(String.valueOf(numRepsSelected));
+                }
+            });
+        }
+    }
 }
 // Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls
