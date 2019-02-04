@@ -41,10 +41,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         workoutPlan = (ListView) findViewById(R.id.workoutSelection);
-        showDropdownSelections();
-        getDropdownSelections();
-        showMuscleGroups();
-        repSelection();
+        addExercise();
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = new ArrayList < String >();
@@ -68,44 +65,21 @@ public class AddWorkoutScreen extends AppCompatActivity {
                 finish();
             }
         });
-
-    }
-
-    private void showMuscleGroups() {
-        DatabaseAccess databaseAccess;
-        databaseAccess = DatabaseAccess.getInstance(this, null);
-        databaseAccess.open();
-        List<String> muscleGroups = databaseAccess.getMuscleGroups();
-        databaseAccess.close();
-        // The following code was adapted from
-        // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, muscleGroups);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.muscleGroups.setAdapter(adapter);
-    }
-
-    private void showExercises(String muscleGroup) {
-
-        DatabaseAccess databaseAccess;
-        databaseAccess = DatabaseAccess.getInstance(this, null);
-
-        databaseAccess.open();
-        List<String> exercises = databaseAccess.getExercises(muscleGroup);
-        databaseAccess.close();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exercises);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.exercises.setAdapter(adapter);
     }
 
     private void addExercise(){
-
+        dropdownSelection();
+        repSelection();
     }
 
+    private void dropdownSelection(){
+        showDropdownSelections();
+        getDropdownSelections();
+    }
 
     private void showDropdownSelections(){
         this.muscleGroups = (Spinner) findViewById(R.id.muscleGroupSelector);
+        showMuscleGroups();
         getDropdownSelections();
     }
 
@@ -140,12 +114,43 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
+    private void showMuscleGroups() {
+        DatabaseAccess databaseAccess = getDatabaseAccess();
+        List<String> muscleGroups = databaseAccess.getMuscleGroups();
+        databaseAccess.close();
+        // The following code was adapted from
+        // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, muscleGroups);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.muscleGroups.setAdapter(adapter);
+    }
+
+    private void showExercises(String muscleGroup) {
+        DatabaseAccess databaseAccess = getDatabaseAccess();
+        List<String> exercises = databaseAccess.getExercises(muscleGroup);
+        databaseAccess.close();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, exercises);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.exercises.setAdapter(adapter);
+    }
+
+    private DatabaseAccess getDatabaseAccess(){
+        DatabaseAccess databaseAccess;
+        databaseAccess = DatabaseAccess.getInstance(this, null);
+        databaseAccess.open();
+        return databaseAccess;
+    }
+
     private void repSelection() {
-        reps = findViewById(R.id.repSelector);
-        repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
+        showRepSelection();
         if (reps != null) {
             getRepSelection();
         }
+    }
+
+    private void showRepSelection(){
+        reps = findViewById(R.id.repSelector);
+        repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
     }
 
     public void getRepSelection(){
