@@ -3,6 +3,9 @@ package kate.workoutplanner;
 import org.junit.Test;
 
 import java.lang.reflect.Type;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static kate.workoutplanner.AddWorkoutScreen.test;
@@ -40,6 +43,11 @@ public class ExampleUnitTest {
         exerciseItem.name("Squats");
         exerciseItem.reps(13);
         assertEquals(exerciseItem.name, "Squats");
+    }
+
+    @Test
+    public void jokeTest(){
+        assertEquals(DaysOfWeek.sortedWeekdays().length, 8);
     }
 
     //@Test
