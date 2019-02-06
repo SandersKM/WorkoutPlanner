@@ -9,6 +9,78 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:id="@+id/dayView6"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView5" />
+
+    <TextView
+        android:id="@+id/dayView5"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView4" />
+
+    <TextView
+        android:id="@+id/dayView4"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginEnd="2dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView3" />
+
+    <TextView
+        android:id="@+id/dayView7"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="203dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/goForward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView6" />
+
+    <TextView
+        android:id="@+id/dayView3"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView2" />
+
+    <TextView
+        android:id="@+id/dayView2"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="3dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dayView1" />
+
+    <TextView
         android:id="@+id/Todays_workout_header"
         android:layout_width="380dp"
         android:layout_height="64dp"
@@ -82,14 +154,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Todays_workout_header" />
 
-    <ListView
-        android:id="@+id/upcomingWorkoutsView"
-        android:layout_width="181dp"
-        android:layout_height="748dp"
+    <TextView
+        android:id="@+id/dayView1"
+        android:layout_width="187dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/goForward"
+        android:layout_marginEnd="1dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/dayView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/Upcoming_workout_header" />
