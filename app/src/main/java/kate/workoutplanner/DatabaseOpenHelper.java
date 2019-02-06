@@ -6,11 +6,10 @@ import com.javahelps.externalsqliteimporter.ExternalSQLiteOpenHelper;
 
 // I modified this code from
 // https://www.javahelps.com/2016/07/deploy-and-upgrade-android-database.html
-
 public class DatabaseOpenHelper extends ExternalSQLiteOpenHelper {
-    /**
-     * Name of the database.
-     */
+
+
+    // Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls
     private static final String DATABASE_NAME = "exercises.db";
 
     /**

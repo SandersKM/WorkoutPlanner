@@ -74,14 +74,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
-    public void showNoRepsError(){
-
-    }
-
-    //public List<String> updateWorkoutPlanList(List<String> workoutPlanList, Exercise exercise){
-
-    //}
-
     private ExerciseItem setExerciseItem(){
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name(exerciseName);
@@ -221,4 +213,3 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
 }
-// Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls
