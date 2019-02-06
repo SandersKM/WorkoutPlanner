@@ -46,7 +46,8 @@ public class ExampleUnitTest {
 
     @Test
     public void daysOfWeekLength(){
-        assertEquals(DaysOfWeek.sortedWeekdays().length, 8);
+        DaysOfWeek dow = new DaysOfWeek();
+        assertEquals(dow.sortedWeekdays().length, 8);
     }
 
     @Test

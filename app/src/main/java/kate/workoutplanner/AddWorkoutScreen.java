@@ -71,6 +71,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
             public void onClick(View v) {
                 ExerciseItem exerciseItem = setExerciseItem();
                 AddWorkoutElements.add(exerciseItem.getExerciseItemText());
+                workoutPlan.addExerciseItem(exerciseItem);
+                System.out.println(workoutPlan.getWorkoutPlan_asStrings());
+                System.out.println(AddWorkoutElements);
                 workoutSelectionAdapter.notifyDataSetChanged();
             }
         });

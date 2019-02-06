@@ -8,30 +8,38 @@ import java.util.List;
 
 public class DaysOfWeek {
 
-    public DaysOfWeek(){
+    String[] weekdays;
 
+    public DaysOfWeek(){
+        DateFormatSymbols dateFormat = new DateFormatSymbols();
+        this.weekdays = dateFormat.getWeekdays();
     }
 
-    public static String[] sortedWeekdays(){
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        DateFormatSymbols df = new DateFormatSymbols();
-        String[] wd = df.getWeekdays();
+    // https://stackoverflow.com/questions/5270272/how-to-determine-day-of-week-by-passing-specific-date
+
+    public String[] sortedWeekdays(){
+        int dayOfWeek = getDayofWeek();
+
         String[] sorted = new String[8];
         sorted[0] = "Today";
         int i = 1;
-        for(int j = dayOfWeek + 1; j < wd.length; j++){
-            sorted[i] = wd[j];
+        for(int j = dayOfWeek + 1; j < this.weekdays.length; j++){
+            sorted[i] = this.weekdays[j];
             i++;
         }
         for(int j = 1; j<= dayOfWeek; j++){
-            sorted[i] = wd[j];
+            sorted[i] = this.weekdays[j];
             i++;
         }
         for(int j =0; j< sorted.length; j++){
             System.out.print(sorted[j]);
         }
         return sorted;
+    }
+
+    public static int getDayofWeek(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        return c.get(Calendar.DAY_OF_WEEK);
     }
 }
