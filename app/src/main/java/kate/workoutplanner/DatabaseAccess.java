@@ -45,34 +45,20 @@ public class DatabaseAccess {
         return instance;
     }
 
-    /**
-     * Open the database connection.
-     */
     public void open() {
         this.database = openHelper.getWritableDatabase();
     }
 
-    /**
-     * Close the database connection.
-     */
     public void close() {
         if (database != null) {
             this.database.close();
         }
     }
 
-    /**
-     *
-     * @return a List of muscle Groups
-     */
     public List<String> getMuscleGroups() {
         return getQuery("SELECT DISTINCT muscle_group FROM exercises");
     }
 
-    /**
-     *
-     * @return a List of muscle Groups
-     */
     public List<String> getExercises(String muscleGroup) {
         String sqlQuery = "SELECT exercise FROM exercises WHERE muscle_group = '" + muscleGroup + "'";
         return getQuery(sqlQuery);
