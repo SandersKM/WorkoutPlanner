@@ -2,6 +2,10 @@ package kate.workoutplanner;
 
 import org.junit.Test;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
+import static kate.workoutplanner.AddWorkoutScreen.test;
 import static org.junit.Assert.*;
 
 /**
@@ -14,4 +18,33 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void exerciseItemText_isString(){
+        ExerciseItem exerciseItem = new ExerciseItem();
+        exerciseItem.name("Squats");
+        exerciseItem.reps(13);
+        System.out.print(exerciseItem.getExerciseItemText());
+        assertTrue(exerciseItem.getExerciseItemText() instanceof String);
+    }
+
+    public void exerciseItemReps_isCorrect(){
+        ExerciseItem exerciseItem = new ExerciseItem();
+        exerciseItem.name("Squats");
+        exerciseItem.reps(13);
+        assertEquals(exerciseItem.reps, 13);
+    }
+
+    public void exerciseItemName_isCorrect(){
+        ExerciseItem exerciseItem = new ExerciseItem();
+        exerciseItem.name("Squats");
+        exerciseItem.reps(13);
+        assertEquals(exerciseItem.name, "Squats");
+    }
+
+    //@Test
+    //public void databaseRetrievalContains_Back(){
+    //    System.out.print(test());
+    //    assertFalse(false);
+    //}
 }

@@ -1,13 +1,9 @@
 package kate.workoutplanner;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,8 +11,6 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.MultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +25,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private Spinner exercises;
     private SeekBar reps;
     private TextView repsNumDisplay;
-    private int numRepsSelected;
-    private String exerciseSelected;
+    private int exerciseReps;
+    private String exerciseName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +51,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         workoutPlan = (ListView) findViewById(R.id.workoutSelection);
         workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
-        createNewExercise();
+        setExerciseItemComponents();
         updateWorkoutPlan();
     }
 
@@ -73,18 +67,34 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addToWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddWorkoutElements.add(exerciseSelected.toString() + "\nreps: " + String.valueOf(numRepsSelected));
+                ExerciseItem exerciseItem = setExerciseItem();
+                AddWorkoutElements.add(exerciseItem.getExerciseItemText());
                 workoutSelectionAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    private void createNewExercise(){
-        dropdownSelection();
+    public void showNoRepsError(){
+
+    }
+
+    //public List<String> updateWorkoutPlanList(List<String> workoutPlanList, Exercise exercise){
+
+    //}
+
+    private ExerciseItem setExerciseItem(){
+        ExerciseItem exerciseItem = new ExerciseItem();
+        exerciseItem.name(exerciseName);
+        exerciseItem.reps(exerciseReps);
+        return exerciseItem;
+    }
+
+    private void setExerciseItemComponents(){
+        setExerciseName();
         repSelection();
     }
 
-    private void dropdownSelection(){
+    private void setExerciseName(){
         showDropdownSelections();
         getDropdownSelections();
     }
@@ -95,6 +105,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         getDropdownSelections();
     }
 
+    // How do I return something from this?
     private void getDropdownSelections(){
         // modified the following code from
         // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
@@ -119,7 +130,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         exercises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                exerciseSelected = (String) parent.getItemAtPosition(position);
+                exerciseName = (String) parent.getItemAtPosition(position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -163,6 +174,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
     private void showRepSelection(){
+        ensureRepSelected();
         reps = findViewById(R.id.repSelector);
         repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
     }
@@ -172,15 +184,40 @@ public class AddWorkoutScreen extends AppCompatActivity {
         // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
         reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                ensureRepSelected();
+            }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numRepsSelected = seekBar.getProgress();
-                repsNumDisplay.setText(String.valueOf(numRepsSelected));
+                exerciseReps = seekBar.getProgress();
+                repsNumDisplay.setText(String.valueOf(exerciseReps));
+                ensureRepSelected();
             }
         });
+    }
+
+    public void ensureRepSelected(){
+        if(exerciseReps > 0){
+            addToWorkout.setEnabled(true);
+            addToWorkout.setText("Add Exercise to Workout");
+            addToWorkout.setBackgroundColor(Color.GREEN);
+        }
+        else{
+            addToWorkout.setEnabled(false);
+            addToWorkout.setText("Add Reps!");
+            addToWorkout.setBackgroundColor(R.drawable.ic_launcher_background);
+        }
+    }
+
+    public static List<String> test() {
+        DatabaseAccess databaseAccess;
+        databaseAccess = DatabaseAccess.getInstance(new MyApplication().getAppContext(), null);
+        databaseAccess.open();
+        List<String> muscleGroups = databaseAccess.getMuscleGroups();
+        databaseAccess.close();
+        return muscleGroups;
     }
 
 }
