@@ -20,13 +20,14 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private Button goBack;
     private Button addToWorkout;
     private Button addWorkout;
-    private ListView workoutPlan;
+    private ListView workoutPlanDisplay;
     private Spinner muscleGroups;
     private Spinner exercises;
     private SeekBar reps;
     private TextView repsNumDisplay;
     private int exerciseReps;
     private String exerciseName;
+    private WorkoutPlan workoutPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
     private void createWorkoutPlan(){
-        workoutPlan = (ListView) findViewById(R.id.workoutSelection);
-        workoutPlan.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        workoutPlan = new WorkoutPlan();
+        workoutPlanDisplay = (ListView) findViewById(R.id.workoutSelection);
+        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         setExerciseItemComponents();
         updateWorkoutPlan();
@@ -63,7 +65,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
                 (AddWorkoutScreen.this, android.R.layout.simple_list_item_multiple_choice,
                         AddWorkoutElements);
-        workoutPlan.setAdapter(workoutSelectionAdapter);
+        workoutPlanDisplay.setAdapter(workoutSelectionAdapter);
         addToWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

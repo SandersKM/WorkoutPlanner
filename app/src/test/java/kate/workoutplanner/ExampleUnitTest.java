@@ -27,7 +27,6 @@ public class ExampleUnitTest {
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name("Squats");
         exerciseItem.reps(13);
-        System.out.print(exerciseItem.getExerciseItemText());
         assertTrue(exerciseItem.getExerciseItemText() instanceof String);
     }
 
@@ -46,8 +45,35 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void jokeTest(){
+    public void daysOfWeekLength(){
         assertEquals(DaysOfWeek.sortedWeekdays().length, 8);
+    }
+
+    @Test
+    public void workoutPlan_isCorrectSize(){
+        WorkoutPlan workoutPlan = new WorkoutPlan();
+        for(int i = 0; i < 10; i++){
+            ExerciseItem exerciseItem = new ExerciseItem();
+            exerciseItem.name("Squats");
+            exerciseItem.reps(13);
+            workoutPlan.addExerciseItem(exerciseItem);
+        }
+        assertEquals(workoutPlan.getWorkoutPlanLength(), 10);
+    }
+
+    @Test
+    public void joinWorkoutPlans_isCorrectSize(){
+        WorkoutPlan workoutPlan1 = new WorkoutPlan();
+        WorkoutPlan workoutPlan2 = new WorkoutPlan();
+        for(int i = 0; i < 10; i++){
+            ExerciseItem exerciseItem = new ExerciseItem();
+            exerciseItem.name("Squats");
+            exerciseItem.reps(13);
+            workoutPlan1.addExerciseItem(exerciseItem);
+            workoutPlan2.addExerciseItem(exerciseItem);
+        }
+        workoutPlan1.addWorkoutPlan(workoutPlan2);
+        assertEquals(workoutPlan1.getWorkoutPlanLength(), 20);
     }
 
     //@Test
