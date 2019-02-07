@@ -1,5 +1,6 @@
 package kate.workoutplanner;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         createWorkoutPlan();
         cancelWorkout();
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("workoutPlan", workoutPlan);
     }
 
     private void cancelWorkout(){

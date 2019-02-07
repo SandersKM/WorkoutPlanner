@@ -1,10 +1,11 @@
 package kate.workoutplanner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class WorkoutPlan implements WorkoutPlanning {
+public class WorkoutPlan implements WorkoutPlanning, Serializable {
 
     List<ExerciseItem> exerciseItems;
 
