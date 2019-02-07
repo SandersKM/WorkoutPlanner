@@ -1,7 +1,13 @@
 package kate.workoutplanner;
 
-import org.junit.Test;
+import android.content.Context;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -9,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import static kate.workoutplanner.AddWorkoutScreen.test;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 /**
@@ -77,9 +84,12 @@ public class ExampleUnitTest {
         assertEquals(workoutPlan1.getWorkoutPlanLength(), 20);
     }
 
+
+
     //@Test
     //public void databaseRetrievalContains_Back(){
     //    System.out.print(test());
     //    assertFalse(false);
     //}
 }
+

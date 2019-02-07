@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class WorkoutPlan {
+public class WorkoutPlan implements WorkoutPlanning {
 
     List<ExerciseItem> exerciseItems;
 

@@ -61,7 +61,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     public void updateWorkoutPlan(){
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
-        final List < String > AddWorkoutElements = new ArrayList < String >();
+        final List < String > AddWorkoutElements = workoutPlan.getWorkoutPlan_asStrings();
         final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
                 (AddWorkoutScreen.this, android.R.layout.simple_list_item_multiple_choice,
                         AddWorkoutElements);
