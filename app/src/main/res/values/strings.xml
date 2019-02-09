@@ -15,4 +15,5 @@
     <string name="cancel">cancel</string>
     <string name="Cancel">Cancel</string>
     <string name="workout_plan">Workout Plan</string>
+    <string name="edit_today_s_workout">EDIT TODAY\'S WORKOUT</string>
 </resources>

@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,10 +27,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Get the application context
         mContext = getApplicationContext();
-        goForward();
+        //goForward();
         Intent intent = this.getIntent();
         WorkoutPlan workoutPlan = (WorkoutPlan) intent.getSerializableExtra("myWorkout");
+        initializeButtons();
         // TODO for loop to populate dayViews
+    }
+
+    private void initializeButtons() {
+        weekOfWorkouts = new Button[8];
+        weekOfWorkouts[0] = findViewById(R.id.day0);
+        weekOfWorkouts[1] = findViewById(R.id.day1);
+        weekOfWorkouts[2] = findViewById(R.id.day2);
+        weekOfWorkouts[3] = findViewById(R.id.day3);
+        weekOfWorkouts[4] = findViewById(R.id.day4);
+        weekOfWorkouts[5] = findViewById(R.id.day5);
+        weekOfWorkouts[6] = findViewById(R.id.day6);
+        weekOfWorkouts[7] = findViewById(R.id.day7);
     }
 
     @Override
@@ -52,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goForward(){
-        forward = findViewById(R.id.goForward);
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,5 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/2942857/how-to-convert-current-date-into-string-in-java
         return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
+
+
 
 }

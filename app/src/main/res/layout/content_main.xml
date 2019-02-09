@@ -53,134 +53,148 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/goForward"
+        android:id="@+id/day0"
+        android:layout_width="367dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="@string/edit_today_s_workout"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysWorkoutView" />
+
+    <Button
+        android:id="@+id/day6"
         android:layout_width="182dp"
         android:layout_height="97dp"
-        android:layout_marginStart="1dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="@string/add_new_workout"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/day7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/day5" />
+
+    <Button
+        android:id="@+id/day7"
+        android:layout_width="182dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward9" />
+        app:layout_constraintTop_toBottomOf="@+id/day6" />
 
     <Button
-        android:id="@+id/goForward4"
+        android:id="@+id/day1"
         android:layout_width="182dp"
         android:layout_height="97dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="11dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/Upcoming_workout_header" />
-
-    <Button
-        android:id="@+id/goForward5"
-        android:layout_width="182dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/goForward6"
+        app:layout_constraintBottom_toTopOf="@+id/day2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/goForward6"
+        android:id="@+id/day2"
         android:layout_width="182dp"
         android:layout_height="97dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="496dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/day3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward5" />
+        app:layout_constraintTop_toBottomOf="@+id/day1" />
 
     <Button
-        android:id="@+id/goForward7"
+        android:id="@+id/day3"
         android:layout_width="182dp"
         android:layout_height="97dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="388dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/day4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward6" />
+        app:layout_constraintTop_toBottomOf="@+id/day2" />
 
     <Button
-        android:id="@+id/goForward8"
+        android:id="@+id/day4"
         android:layout_width="182dp"
         android:layout_height="97dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/day5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward7" />
+        app:layout_constraintTop_toBottomOf="@+id/day3" />
 
     <Button
-        android:id="@+id/goForward9"
+        android:id="@+id/day5"
         android:layout_width="182dp"
         android:layout_height="97dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="11dp"
-        android:layout_marginBottom="160dp"
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/goForward8" />
+        app:layout_constraintTop_toBottomOf="@+id/day4" />
 
     <ListView
         android:id="@+id/todaysWorkoutView"
         android:layout_width="387dp"
-        android:layout_height="793dp"
+        android:layout_height="767dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/divider"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Todays_workout_header" />
+        app:layout_constraintTop_toBottomOf="@+id/Todays_workout_header"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
