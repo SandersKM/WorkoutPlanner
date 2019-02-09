@@ -4,6 +4,7 @@ public class ExerciseItem {
 
     String name;
     int reps;
+    String date;
 
     public ExerciseItem(){
         // Does this constructor need anything?
@@ -17,8 +18,14 @@ public class ExerciseItem {
         this.reps = reps;
     }
 
+    public void date(String date) { this.date = date; }
+
     public int getReps(){
         return this.reps;
+    }
+
+    public String getDate(){
+        return this.date;
     }
 
     public String getName(){
