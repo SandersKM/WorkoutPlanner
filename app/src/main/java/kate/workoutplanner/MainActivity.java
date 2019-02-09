@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         todaysWorkout = findViewById(R.id.todaysWorkoutView);
         WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-       // Log.e("DB_working", String.valueOf(workoutInfoDatabaseAccess.getExerciseCountForDate(getDate())));
+        List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate());
+        Log.e("DB_working", String.valueOf(workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate())));
+        final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
+                (this, android.R.layout.simple_list_item_multiple_choice,
+                        todaysExerciseItems);
+        todaysWorkout.setAdapter(workoutDisplayAdapter);
     }
 
 

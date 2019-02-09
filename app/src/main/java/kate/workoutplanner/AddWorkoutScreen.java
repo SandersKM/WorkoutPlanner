@@ -122,7 +122,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                showExerciseDrowpdownSelection(selectedItemText);
+                showExerciseDropdownSelection(selectedItemText);
                 getExerciseDropdownSelection();
             }
             @Override
@@ -130,7 +130,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
-    private void showExerciseDrowpdownSelection(String selectedItemText){
+    private void showExerciseDropdownSelection(String selectedItemText){
         exercises = (Spinner) findViewById(R.id.exerciseSelector);
         showExercises(selectedItemText);
     }

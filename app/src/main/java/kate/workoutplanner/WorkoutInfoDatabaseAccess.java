@@ -51,7 +51,7 @@ public class WorkoutInfoDatabaseAccess {
     }
 
     public List<String> getWorkoutPlanForDate(String date) {
-        String sqlQuery = "SELECT * FROM workoutInfo WHERE date = '" + date + "'";
+        String sqlQuery = "SELECT exercise FROM workoutInfo WHERE date = '" + date + "'";
         return getQuery(sqlQuery);
     }
 
@@ -66,8 +66,7 @@ public class WorkoutInfoDatabaseAccess {
         this.open();
         ContentValues values = new ContentValues();
         values.put("date", exerciseItem.getDate());
-        values.put("exercise", exerciseItem.getName());
-        values.put("reps", String.valueOf(exerciseItem.getReps()));
+        values.put("exercise", exerciseItem.getExerciseItemText());
         Log.e("HELPF", String.valueOf(exerciseItem.getExerciseItemText()));
         try {
             database.insert("workoutInfo", null, values);
