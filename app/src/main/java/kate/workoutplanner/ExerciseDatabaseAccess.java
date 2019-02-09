@@ -12,10 +12,10 @@ import java.util.List;
 // I modified this code from
 // https://www.javahelps.com/2016/07/deploy-and-upgrade-android-database.html
 
-public class DatabaseAccess {
+public class ExerciseDatabaseAccess {
     private ExternalSQLiteOpenHelper openHelper;
     private SQLiteDatabase database;
-    private static DatabaseAccess instance;
+    private static ExerciseDatabaseAccess instance;
 
     /**
      * Private constructor to avoid object creation from outside classes.
@@ -23,11 +23,11 @@ public class DatabaseAccess {
      * @param context
      * @param sourceDirectory
      */
-    private DatabaseAccess(Context context, String sourceDirectory) {
+    private ExerciseDatabaseAccess(Context context, String sourceDirectory) {
         if (sourceDirectory == null) {
-            this.openHelper = new DatabaseOpenHelper(context);
+            this.openHelper = new DatabaseOpenHelper(context, "exercises.db");
         } else {
-            this.openHelper = new DatabaseOpenHelper(context, sourceDirectory);
+            this.openHelper = new DatabaseOpenHelper(context, "exercises.db", sourceDirectory);
         }
     }
 
@@ -38,9 +38,9 @@ public class DatabaseAccess {
      * @param sourceDirectory optional external directory
      * @return the instance of DabaseAccess
      */
-    public static DatabaseAccess getInstance(Context context, String sourceDirectory) {
+    public static ExerciseDatabaseAccess getInstance(Context context, String sourceDirectory) {
         if (instance == null) {
-            instance = new DatabaseAccess(context, sourceDirectory);
+            instance = new ExerciseDatabaseAccess(context, sourceDirectory);
         }
         return instance;
     }

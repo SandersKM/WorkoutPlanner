@@ -139,22 +139,22 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
     private void showMuscleGroups() {
-        DatabaseAccess databaseAccess = getDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess = getDatabaseAccess();
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
         databaseAccess.close();
         this.muscleGroups.setAdapter(getArrayAdapter(muscleGroups));
     }
 
     private void showExercises(String muscleGroup) {
-        DatabaseAccess databaseAccess = getDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess = getDatabaseAccess();
         List<String> exercises = databaseAccess.getExercises(muscleGroup);
         databaseAccess.close();
         this.exercises.setAdapter(getArrayAdapter(exercises));
     }
 
-    private DatabaseAccess getDatabaseAccess(){
-        DatabaseAccess databaseAccess;
-        databaseAccess = DatabaseAccess.getInstance(this, null);
+    private ExerciseDatabaseAccess getDatabaseAccess(){
+        ExerciseDatabaseAccess databaseAccess;
+        databaseAccess = ExerciseDatabaseAccess.getInstance(this, null);
         databaseAccess.open();
         return databaseAccess;
     }
@@ -213,8 +213,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
     public static List<String> test() {
-        DatabaseAccess databaseAccess;
-        databaseAccess = DatabaseAccess.getInstance(new MyApplication().getAppContext(), null);
+        ExerciseDatabaseAccess databaseAccess;
+        databaseAccess = ExerciseDatabaseAccess.getInstance(new MyApplication().getAppContext(), null);
         databaseAccess.open();
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
         databaseAccess.close();

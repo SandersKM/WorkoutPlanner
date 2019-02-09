@@ -10,7 +10,7 @@ public class DatabaseOpenHelper extends ExternalSQLiteOpenHelper {
 
 
     // Workout data from https://www.edu.gov.mb.ca/k12/cur/physhlth/frame_found_gr11/rm/resist_train_planner.xls
-    private static final String DATABASE_NAME = "exercises.db";
+    //private static final String DATABASE_NAME = "exercises.db";
 
     /**
      * Version of the database. Only used to import from assets.
@@ -20,14 +20,14 @@ public class DatabaseOpenHelper extends ExternalSQLiteOpenHelper {
     /**
      * Use this constructor if you want to import database from assets/database directory.
      */
-    public DatabaseOpenHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseOpenHelper(Context context, String database_name) {
+        super(context, database_name, null, DATABASE_VERSION);
     }
 
     /**
      * Use this constructor if you want to import database from external directory.
      */
-    public DatabaseOpenHelper(Context context, String sourceDirectory) {
-        super(context, DATABASE_NAME, sourceDirectory, null);
+    public DatabaseOpenHelper(Context context, String database_name, String sourceDirectory) {
+        super(context, database_name, sourceDirectory, null);
     }
 }
