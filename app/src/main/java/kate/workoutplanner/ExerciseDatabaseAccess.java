@@ -65,6 +65,7 @@ public class ExerciseDatabaseAccess {
     }
 
     public List<String> getQuery(String sqlQuery){
+        this.open();
         List<String> list = new ArrayList<>();
         Cursor cursor = database.rawQuery(sqlQuery, null);
         cursor.moveToFirst();
@@ -73,6 +74,7 @@ public class ExerciseDatabaseAccess {
             cursor.moveToNext();
         }
         cursor.close();
+        this.close();
         return list;
     }
 }

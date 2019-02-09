@@ -62,15 +62,25 @@ public class WorkoutInfoDatabaseAccess {
         this.close();
     }
 
-    public void addExerciseToWorkout(ExerciseItem exerciseItem){
+    public boolean addExerciseToWorkout(ExerciseItem exerciseItem){
         this.open();
         ContentValues values = new ContentValues();
         values.put("date", exerciseItem.getDate());
         values.put("exercise", exerciseItem.getName());
-        values.put("reps", exerciseItem.getReps());
-        long newRowId = database.insert("workoutInfo", null, values);
-        Log.e("DB", String.valueOf(newRowId));
+        values.put("reps", String.valueOf(exerciseItem.getReps()));
+        Log.e("HELPF", String.valueOf(exerciseItem.getExerciseItemText()));
+        try {
+            database.insert("workoutInfo", null, values);
+            //database.execSQL("CREATE TABLE IF NOT EXISTS workoutInfo(id INTEGER, date TEXT, exercise TEXT, reps INTEGER);");
+            //database.execSQL("INSERT INTO workoutInfo VALUES('admin','" + exerciseItem.getDate()+"','" + exerciseItem.getName()+"','" + String.valueOf(exerciseItem.getReps())+"');");
+        }
+        catch (Exception e){
+            Log.e("HELPF", e.getMessage());
+            return false;
+        }
+        Log.e("HELPF", String.valueOf(this.getExerciseCountForDate(exerciseItem.getDate())));
         this.close();
+        return true;
     }
 
     public void open() {
@@ -84,6 +94,7 @@ public class WorkoutInfoDatabaseAccess {
     }
 
     public List<String> getQuery(String sqlQuery){
+        this.open();
         List<String> list = new ArrayList<>();
         Cursor cursor = database.rawQuery(sqlQuery, null);
         cursor.moveToFirst();
@@ -92,6 +103,7 @@ public class WorkoutInfoDatabaseAccess {
             cursor.moveToNext();
         }
         cursor.close();
+        this.close();
         return list;
     }
 

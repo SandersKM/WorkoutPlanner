@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +14,8 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -74,6 +75,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ExerciseItem exerciseItem = setExerciseItem();
+                addExerciseItemToDatabase(exerciseItem);
                 AddWorkoutElements.add(exerciseItem.getExerciseItemText());
                 workoutPlan.addExerciseItem(exerciseItem);
                 System.out.println(workoutPlan.getWorkoutPlan_asStrings());
@@ -87,7 +89,13 @@ public class AddWorkoutScreen extends AppCompatActivity {
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name(exerciseName);
         exerciseItem.reps(exerciseReps);
+        exerciseItem.date(getDate());
         return exerciseItem;
+    }
+
+    private String getDate(){
+        // https://stackoverflow.com/questions/2942857/how-to-convert-current-date-into-string-in-java
+        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 
     private void setExerciseItemComponents(){
@@ -138,24 +146,33 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
+    private void addExerciseItemToDatabase(ExerciseItem exerciseItem){
+        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
+        boolean ok = databaseAccess.addExerciseToWorkout(exerciseItem);
+        Log.e("DB_working", String.valueOf(ok));
+    }
+
+    private WorkoutInfoDatabaseAccess getWorkoutInfoDatabaseAccess(){
+        WorkoutInfoDatabaseAccess databaseAccess;
+        databaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
+        return databaseAccess;
+    }
+
     private void showMuscleGroups() {
-        ExerciseDatabaseAccess databaseAccess = getDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess = getExerciseDatabaseAccess();
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
-        databaseAccess.close();
         this.muscleGroups.setAdapter(getArrayAdapter(muscleGroups));
     }
 
     private void showExercises(String muscleGroup) {
-        ExerciseDatabaseAccess databaseAccess = getDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess = getExerciseDatabaseAccess();
         List<String> exercises = databaseAccess.getExercises(muscleGroup);
-        databaseAccess.close();
         this.exercises.setAdapter(getArrayAdapter(exercises));
     }
 
-    private ExerciseDatabaseAccess getDatabaseAccess(){
+    private ExerciseDatabaseAccess getExerciseDatabaseAccess(){
         ExerciseDatabaseAccess databaseAccess;
         databaseAccess = ExerciseDatabaseAccess.getInstance(this, null);
-        databaseAccess.open();
         return databaseAccess;
     }
 
