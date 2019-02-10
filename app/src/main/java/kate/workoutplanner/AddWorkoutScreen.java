@@ -31,15 +31,16 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private int exerciseReps;
     private String exerciseName;
     private WorkoutPlan workoutPlan;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
+        date = getIntent().getStringExtra("date");
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         createWorkoutPlan();
         cancelWorkout();
-        String date = getIntent().getStringExtra("date");
     }
 
     private void cancelWorkout(){
@@ -88,13 +89,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name(exerciseName);
         exerciseItem.reps(exerciseReps);
-        exerciseItem.date(getDate());
+        exerciseItem.date(date);
         return exerciseItem;
-    }
-
-    private String getDate(){
-        // https://stackoverflow.com/questions/2942857/how-to-convert-current-date-into-string-in-java
-        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }
 
     private void setExerciseItemComponents(){

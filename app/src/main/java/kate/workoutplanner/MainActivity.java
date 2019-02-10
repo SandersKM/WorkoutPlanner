@@ -38,13 +38,20 @@ public class MainActivity extends AppCompatActivity {
         dates = dow.getDates();
         initializeButtons();
 
-        goForward(0);
+
         // TODO for loop to populate dayViews
     }
 
     private void initializeButtons() {
         createButtonArray();
         setButtonText();
+        setGoForward();
+    }
+
+    private void setGoForward() {
+        for(int i = 0; i < dates.length; i++){
+            goForward(i);
+        }
     }
 
     private void createButtonArray(){
@@ -75,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         todaysWorkout = findViewById(R.id.todaysWorkoutView);
         //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate());
-        Log.e("DB_working", String.valueOf(workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate())));
+        List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(dates[0]);
         final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
                 (this, android.R.layout.simple_list_item_multiple_choice,
                         todaysExerciseItems);
         todaysWorkout.setAdapter(workoutDisplayAdapter);
+        setButtonText();
     }
 
 
@@ -96,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private String getDate(){
-        // https://stackoverflow.com/questions/2942857/how-to-convert-current-date-into-string-in-java
-        return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-    }
 
 
 
