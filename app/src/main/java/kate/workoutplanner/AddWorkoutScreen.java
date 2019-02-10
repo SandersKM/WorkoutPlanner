@@ -1,6 +1,5 @@
 package kate.workoutplanner;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,15 +13,12 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
     // Back button is not really needed
     private Button goBack;
     private Button addToWorkout;
-    private Button addWorkout;
     private ListView workoutPlanDisplay;
     private Spinner muscleGroups;
     private Spinner exercises;
@@ -34,7 +30,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private String date;
     List<String> savedExerciseItems;
     List<String> savedExerciseItemIDs;
-    WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +40,42 @@ public class AddWorkoutScreen extends AppCompatActivity {
         //workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         viewWorkoutPlan();
         createWorkoutPlan();
-        cancelWorkout();
+        saveWorkout();
         deleteCheckedItems();
     }
 
-    private void viewWorkoutPlan(){
-        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        getDatabaseUpdate();
-        ArrayAdapter workoutSelectionAdapter = getAdapter(savedExerciseItems);
-        workoutSelectionAdapter.notifyDataSetChanged();
+    private void saveWorkout(){
+        goBack = findViewById(R.id.goBack);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    // // // // // // // //
+    // Edit Workout Plan //
+    // // // // // // // //
+
+    private void createWorkoutPlan(){
+        workoutPlan = new WorkoutPlan();
+        addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
+        setExerciseItemComponents();
+        updateWorkoutPlan();
+    }
+
+    // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
+    public void updateWorkoutPlan(){
+        final List < String > AddWorkoutElements = workoutPlan.getWorkoutPlan_asStrings();
+        addToWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExerciseItem exerciseItem = setExerciseItem();
+                addExerciseItemToDatabase(exerciseItem);
+                viewWorkoutPlan();
+            }
+        });
     }
 
     private void deleteCheckedItems(){
@@ -71,16 +93,20 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private String[] getChecked(){
         SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
         String[] selectedItems = new String[checked.size()];
-        //ArrayList<String> selectedExercies = new ArrayList<String>();
         for (int i = 0; i < checked.size(); i++) {
             int position = checked.keyAt(i);
             if (checked.valueAt(i))
                 selectedItems[i] = savedExerciseItemIDs.get(i);
-            //selectedExercies.add(savedExerciseItems.get(i));
         }
         Log.e("SAVED", String.valueOf(savedExerciseItemIDs.toString()));
-        //Log.e("SAVED", String.valueOf(savedExerciseItems.get(0)));
         return selectedItems;
+    }
+
+    private void viewWorkoutPlan(){
+        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        getDatabaseUpdate();
+        ArrayAdapter workoutSelectionAdapter = getAdapter(savedExerciseItems);
+        workoutSelectionAdapter.notifyDataSetChanged();
     }
 
     private void getDatabaseUpdate(){
@@ -89,21 +115,16 @@ public class AddWorkoutScreen extends AppCompatActivity {
         savedExerciseItemIDs = databaseAccess.getIdsForDate(date);
     }
 
-    private void cancelWorkout(){
-        goBack = findViewById(R.id.goBack);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    private void addExerciseItemToDatabase(ExerciseItem exerciseItem){
+        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
+        boolean ok = databaseAccess.addExerciseToWorkout(exerciseItem);
+        Log.e("DB_working", String.valueOf(ok));
     }
 
-    private void createWorkoutPlan(){
-        workoutPlan = new WorkoutPlan();
-        addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
-        setExerciseItemComponents();
-        updateWorkoutPlan();
+    private WorkoutInfoDatabaseAccess getWorkoutInfoDatabaseAccess(){
+        WorkoutInfoDatabaseAccess databaseAccess;
+        databaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
+        return databaseAccess;
     }
 
     public ArrayAdapter<String> getAdapter(List<String> list){
@@ -114,20 +135,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
         return workoutSelectionAdapter;
     }
 
-    // is there a way to break this down more
-    public void updateWorkoutPlan(){
-        // The following code was modified from
-        // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
-        final List < String > AddWorkoutElements = workoutPlan.getWorkoutPlan_asStrings();
-        addToWorkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ExerciseItem exerciseItem = setExerciseItem();
-                addExerciseItemToDatabase(exerciseItem);
-                viewWorkoutPlan();
-            }
-        });
-    }
+    // // // // // // // // //
+    // Exercise Selection   //
+    // // // // // // // // //
 
     private ExerciseItem setExerciseItem(){
         ExerciseItem exerciseItem = new ExerciseItem();
@@ -153,10 +163,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         getDropdownSelections();
     }
 
-    // How do I return something from this?
+    // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
     private void getDropdownSelections(){
-        // modified the following code from
-        // https://android--code.blogspot.com/2015/08/android-spinner-get-selected-item-text.html
         this.muscleGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -185,42 +193,31 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
-    private void addExerciseItemToDatabase(ExerciseItem exerciseItem){
-        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
-        boolean ok = databaseAccess.addExerciseToWorkout(exerciseItem);
-        Log.e("DB_working", String.valueOf(ok));
-    }
-
-    private WorkoutInfoDatabaseAccess getWorkoutInfoDatabaseAccess(){
-        WorkoutInfoDatabaseAccess databaseAccess;
-        databaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        return databaseAccess;
-    }
-
     private void showMuscleGroups() {
-        ExerciseDatabaseAccess databaseAccess = getExerciseDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess =  ExerciseDatabaseAccess
+                .getInstance(this, null);
         List<String> muscleGroups = databaseAccess.getMuscleGroups();
-        this.muscleGroups.setAdapter(getArrayAdapter(muscleGroups));
+        this.muscleGroups.setAdapter(getDropdownArrayAdapter(muscleGroups));
     }
 
     private void showExercises(String muscleGroup) {
-        ExerciseDatabaseAccess databaseAccess = getExerciseDatabaseAccess();
+        ExerciseDatabaseAccess databaseAccess = ExerciseDatabaseAccess
+                .getInstance(this, null);
         List<String> exercises = databaseAccess.getExercises(muscleGroup);
-        this.exercises.setAdapter(getArrayAdapter(exercises));
-    }
-
-    private ExerciseDatabaseAccess getExerciseDatabaseAccess(){
-        ExerciseDatabaseAccess databaseAccess;
-        databaseAccess = ExerciseDatabaseAccess.getInstance(this, null);
-        return databaseAccess;
+        this.exercises.setAdapter(getDropdownArrayAdapter(exercises));
     }
 
     // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
-    private ArrayAdapter getArrayAdapter(List<String> display){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, display);
+    private ArrayAdapter getDropdownArrayAdapter(List<String> display){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, display);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
+
+    // // // // // // //
+    // REP SELECTION  //
+    // // // // // // //
 
     private void repSelection() {
         showRepSelection();
@@ -235,9 +232,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         repsNumDisplay = (TextView)findViewById(R.id.repsNumberDisplay);
     }
 
+    // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
     public void getRepSelection(){
-        // I modified this code from
-        // https://tutorialwing.com/android-discrete-seekbar-tutorial-with-example/
         reps.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -256,24 +252,22 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     public void ensureRepSelected(){
         if(exerciseReps > 0){
-            addToWorkout.setEnabled(true);
-            addToWorkout.setText("Add Exercise to Workout");
-            addToWorkout.setBackgroundColor(Color.GREEN);
+            enableAddExerciseButton();
         }
         else{
-            addToWorkout.setEnabled(false);
-            addToWorkout.setText("Add Reps!");
-            addToWorkout.setBackgroundColor(R.drawable.ic_launcher_background);
+            disableAddExerciseButton();
         }
     }
 
-    public static List<String> test() {
-        ExerciseDatabaseAccess databaseAccess;
-        databaseAccess = ExerciseDatabaseAccess.getInstance(new MyApplication().getAppContext(), null);
-        databaseAccess.open();
-        List<String> muscleGroups = databaseAccess.getMuscleGroups();
-        databaseAccess.close();
-        return muscleGroups;
+    public void enableAddExerciseButton(){
+        addToWorkout.setEnabled(true);
+        addToWorkout.setText("Add Exercise to Workout");
+        addToWorkout.setBackgroundColor(Color.GREEN);
     }
 
+    public void disableAddExerciseButton(){
+        addToWorkout.setEnabled(false);
+        addToWorkout.setText("Add Reps!");
+        addToWorkout.setBackgroundColor(R.drawable.ic_launcher_background);
+    }
 }

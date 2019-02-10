@@ -26,29 +26,58 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Get the application context
         mContext = getApplicationContext();
         workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        dow = new DaysOfWeek();
-        dates = dow.getDates();
+        setDates();
         initializeButtons();
+        viewTodaysWorkout();
         //deleteDatabase();
     }
 
-    private void deleteDatabase(){
-        workoutInfoDatabaseAccess.deleteAll();
+    @Override
+    protected void onStart(){
+        super.onStart();
+        viewTodaysWorkout();
+        setButtonText();
     }
 
-    private void initializeButtons() {
-        createButtonArray();
-        setButtonText();
-        setGoForward();
+    public void viewTodaysWorkout(){
+        todaysWorkout = findViewById(R.id.todaysWorkoutView);
+        Log.e("DATE", String.valueOf(dates[0]));
+        List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(dates[0]);
+        final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
+                (this, android.R.layout.simple_list_item_multiple_choice,
+                        todaysExerciseItems);
+        todaysWorkout.setAdapter(workoutDisplayAdapter);
+    }
+
+    private void setDates(){
+        dow = new DaysOfWeek();
+        dates = dow.getDates();
     }
 
     private void setGoForward() {
         for(int i = 0; i < dates.length; i++){
             goForward(i);
         }
+    }
+
+    public void goForward(int i){
+        final int index = i;
+        weekOfWorkouts[index].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent forwardIntent = new Intent(MainActivity.this, AddWorkoutScreen.class);
+                forwardIntent.putExtra("date", dates[index]);
+                startActivity(forwardIntent);
+            }
+        });
+    }
+
+    private void initializeButtons() {
+        createButtonArray();
+        setButtonText();
+        setGoForward();
     }
 
     private void createButtonArray(){
@@ -74,32 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        todaysWorkout = findViewById(R.id.todaysWorkoutView);
-        List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(dates[0]);
-        final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
-                (this, android.R.layout.simple_list_item_multiple_choice,
-                        todaysExerciseItems);
-        todaysWorkout.setAdapter(workoutDisplayAdapter);
-        setButtonText();
+    private void deleteDatabase(){
+        workoutInfoDatabaseAccess.deleteAll();
     }
-
-
-    public void goForward(int i){
-        final int index = i;
-        weekOfWorkouts[index].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent forwardIntent = new Intent(MainActivity.this, AddWorkoutScreen.class);
-                forwardIntent.putExtra("date", dates[index]);
-                startActivity(forwardIntent);
-            }
-        });
-    }
-
-
-
-
 }
