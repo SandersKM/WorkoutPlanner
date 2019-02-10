@@ -45,10 +45,11 @@ public class DaysOfWeek {
     public String[] getDates(){
         String[] dates = new String[8];
         Calendar c = Calendar.getInstance();
-        dates[0] = c.getTime().toString();
+        String[] date = c.getTime().toString().split(" ");
+        dates[0] = date[0] + " " + date[1] + " " + date[2] + " " + date[5];
         for(int i = 1; i < dates.length; i++){
             c.add(c.DATE, 1);
-            String[] date = c.getTime().toString().split(" ");
+            date = c.getTime().toString().split(" ");
             dates[i] = date[0] + " " + date[1] + " " + date[2] + " " + date[5];
         }
         return dates;
