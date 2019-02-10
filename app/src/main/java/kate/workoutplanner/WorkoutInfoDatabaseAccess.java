@@ -55,6 +55,11 @@ public class WorkoutInfoDatabaseAccess {
         return getQuery(sqlQuery);
     }
 
+    public List<String> getIdsForDate(String date){
+        String sqlQuery =  "SELECT id FROM workoutInfo WHERE date = '" + date + "'";
+        return getQuery(sqlQuery);
+    }
+
     public void deleteExercisesFromWorkout(String[] seletionArgs){
         this.open();
         String selection = "id LIKE ?";
@@ -65,13 +70,12 @@ public class WorkoutInfoDatabaseAccess {
     public boolean addExerciseToWorkout(ExerciseItem exerciseItem){
         this.open();
         ContentValues values = new ContentValues();
+        values.put("id", exerciseItem.getId());
         values.put("date", exerciseItem.getDate());
         values.put("exercise", exerciseItem.getExerciseItemText());
         Log.e("HELPF", String.valueOf(exerciseItem.getExerciseItemText()));
         try {
             database.insert("workoutInfo", null, values);
-            //database.execSQL("CREATE TABLE IF NOT EXISTS workoutInfo(id INTEGER, date TEXT, exercise TEXT, reps INTEGER);");
-            //database.execSQL("INSERT INTO workoutInfo VALUES('admin','" + exerciseItem.getDate()+"','" + exerciseItem.getName()+"','" + String.valueOf(exerciseItem.getReps())+"');");
         }
         catch (Exception e){
             Log.e("HELPF", e.getMessage());
@@ -104,6 +108,12 @@ public class WorkoutInfoDatabaseAccess {
         cursor.close();
         this.close();
         return list;
+    }
+
+    public void deleteAll(){
+        this.open();
+        database.execSQL("delete from workoutInfo");
+        this.close();
     }
 
 

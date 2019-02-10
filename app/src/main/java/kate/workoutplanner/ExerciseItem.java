@@ -1,13 +1,20 @@
 package kate.workoutplanner;
 
+import android.util.Log;
+
+import java.util.Calendar;
+
 public class ExerciseItem {
 
     String name;
     int reps;
     String date;
+    String id;
 
     public ExerciseItem(){
-        // Does this constructor need anything?
+        Calendar c = Calendar.getInstance();
+        this.id = String.valueOf(c.getTimeInMillis());
+        //Log.e("TIME", this.id);
     }
 
     public void name(String name){
@@ -34,6 +41,10 @@ public class ExerciseItem {
 
     public String getExerciseItemText(){
         return (this.name + "\nreps: " + String.valueOf(this.reps));
+    }
+
+    public String getId(){
+        return this.id;
     }
 
 }

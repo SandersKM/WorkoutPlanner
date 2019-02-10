@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
         dow = new DaysOfWeek();
         dates = dow.getDates();
         initializeButtons();
+        //deleteDatabase();
+    }
+
+    private void deleteDatabase(){
+        workoutInfoDatabaseAccess.deleteAll();
     }
 
     private void initializeButtons() {

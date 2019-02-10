@@ -38,6 +38,7 @@ public class ExampleUnitTest {
         assertTrue(exerciseItem.getExerciseItemText() instanceof String);
     }
 
+    @Test
     public void exerciseItemReps_isCorrect(){
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name("Squats");
@@ -45,6 +46,7 @@ public class ExampleUnitTest {
         assertEquals(exerciseItem.reps, 13);
     }
 
+    @Test
     public void exerciseItemName_isCorrect(){
         ExerciseItem exerciseItem = new ExerciseItem();
         exerciseItem.name("Squats");
@@ -53,16 +55,16 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void daysOfWeekLength(){
-        DaysOfWeek dow = new DaysOfWeek();
-        assertEquals(dow.sortedWeekdays().length, 8);
+    public void exerciseIds_areDifferent(){
+        ExerciseItem itemA = new ExerciseItem();
+        ExerciseItem itemB = new ExerciseItem();
+        assertNotEquals(itemA, itemB);
     }
 
     @Test
-    public void datesArrayToday_isCorrect(){
+    public void daysOfWeekLength(){
         DaysOfWeek dow = new DaysOfWeek();
-        String[] dates = dow.getDates();
-        assertEquals(dates[0], new Date().toString());
+        assertEquals(dow.sortedWeekdays().length, 8);
     }
 
     @Test

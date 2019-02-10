@@ -29,6 +29,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private String exerciseName;
     private WorkoutPlan workoutPlan;
     private String date;
+    List<String> savedExerciseItems;
     WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
 
     @Override
@@ -47,10 +48,9 @@ public class AddWorkoutScreen extends AppCompatActivity {
         workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
         //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        List<String> todaysExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
-        ArrayAdapter workoutSelectionAdapter = getAdapter(todaysExerciseItems);
+        savedExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
+        ArrayAdapter workoutSelectionAdapter = getAdapter(savedExerciseItems);
         workoutSelectionAdapter.notifyDataSetChanged();
-  
     }
 
     private void cancelWorkout(){
