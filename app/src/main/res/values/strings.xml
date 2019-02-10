@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WorkoutPlanner</string>
+    <string name="app_name">Edit Workout</string>
     <string name="action_settings">Settings</string>
     <string name="upcoming_workouts">Upcoming Workouts</string>
     <string name="today_s_workout">Today\'s Workout</string>
@@ -16,4 +16,6 @@
     <string name="workout_plan">Workout Plan</string>
     <string name="edit_today_s_workout">EDIT TODAY\'S WORKOUT</string>
     <string name="save_workout">Save Workout</string>
+    <string name="delete_selected">Delete Selected</string>
+    <string name="edit_workout">Edit Workout</string>
 </resources>

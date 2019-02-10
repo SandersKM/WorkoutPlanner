@@ -1,11 +1,14 @@
 package kate.workoutplanner;
 
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,6 +16,10 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toolbar;
+
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -24,6 +31,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private Spinner exercises;
     private SeekBar reps;
     private TextView repsNumDisplay;
+    private Text title;
     private int exerciseReps;
     private String exerciseName;
     private WorkoutPlan workoutPlan;
@@ -34,8 +42,12 @@ public class AddWorkoutScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         setContentView(R.layout.activity_add_workout_screen);
         date = getIntent().getStringExtra("date");
+        TextView title = findViewById(R.id.Title);
+        title.setText("Edit Workout: " + date.substring(0, date.length() - 4));
         workoutPlanDisplay = (ListView) findViewById(R.id.workoutSelection);
         //workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         viewWorkoutPlan();

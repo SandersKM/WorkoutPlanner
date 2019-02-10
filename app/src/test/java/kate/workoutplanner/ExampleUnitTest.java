@@ -14,8 +14,6 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static kate.workoutplanner.AddWorkoutScreen.test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
