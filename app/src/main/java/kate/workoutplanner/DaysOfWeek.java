@@ -1,6 +1,8 @@
 package kate.workoutplanner;
 
 
+import android.util.Log;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,8 +16,6 @@ public class DaysOfWeek {
         DateFormatSymbols dateFormat = new DateFormatSymbols();
         this.weekdays = dateFormat.getWeekdays();
     }
-
-
 
     public String[] sortedWeekdays(){
         int dayOfWeek = getDayofWeek();
@@ -39,5 +39,18 @@ public class DaysOfWeek {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         return c.get(Calendar.DAY_OF_WEEK);
+    }
+
+    // https://www.geeksforgeeks.org/calendar-class-in-java-with-examples/
+    public String[] getDates(){
+        String[] dates = new String[8];
+        Calendar c = Calendar.getInstance();
+        dates[0] = c.getTime().toString();
+        for(int i = 1; i < dates.length; i++){
+            c.add(c.DATE, 1);
+            String[] date = c.getTime().toString().split(" ");
+            dates[i] = date[0] + " " + date[1] + " " + date[2] + " " + date[5];
+        }
+        return dates;
     }
 }

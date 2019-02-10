@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private Button[] weekOfWorkouts;
     private WorkoutPlan[] workouts;
     private ListView todaysWorkout;
+    private String[] dates;
+    DaysOfWeek dow;
+    WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +30,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Get the application context
         mContext = getApplicationContext();
-        //goForward();
         Intent intent = this.getIntent();
+
+        workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
         WorkoutPlan workoutPlan = (WorkoutPlan) intent.getSerializableExtra("myWorkout");
+        dow = new DaysOfWeek();
+        dates = dow.getDates();
         initializeButtons();
+
+        goForward(0);
         // TODO for loop to populate dayViews
     }
 
     private void initializeButtons() {
+        createButtonArray();
+        setButtonText();
+    }
+
+    private void createButtonArray(){
         weekOfWorkouts = new Button[8];
         weekOfWorkouts[0] = findViewById(R.id.day0);
         weekOfWorkouts[1] = findViewById(R.id.day1);
@@ -46,11 +59,22 @@ public class MainActivity extends AppCompatActivity {
         weekOfWorkouts[7] = findViewById(R.id.day7);
     }
 
+    private void setButtonText(){
+        for(int i = 1; i< weekOfWorkouts.length; i++){
+            Log.e("DEBUG", dates[i]);
+            // https://stackoverflow.com/questions/25852961/how-to-remove-brackets-character-in-string-java
+            String numExercises = workoutInfoDatabaseAccess.getExerciseCountForDate(dates[i])
+                    .toString().replaceAll("[\\[\\]]","");
+            String text = dates[i] + "\nExercises: " +  numExercises;
+            weekOfWorkouts[i].setText(text);
+        }
+    }
+
     @Override
     protected void onStart(){
         super.onStart();
         todaysWorkout = findViewById(R.id.todaysWorkoutView);
-        WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
+        //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
         List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate());
         Log.e("DB_working", String.valueOf(workoutInfoDatabaseAccess.getWorkoutPlanForDate(getDate())));
         final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
@@ -60,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void goForward(){
-        forward.setOnClickListener(new View.OnClickListener() {
+    public void goForward(int i){
+        final int index = i;
+        weekOfWorkouts[index].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent forwardIntent = new Intent(MainActivity.this, AddWorkoutScreen.class);
+                forwardIntent.putExtra("date", dates[index]);
                 startActivity(forwardIntent);
             }
         });

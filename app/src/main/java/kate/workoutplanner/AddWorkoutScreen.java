@@ -39,8 +39,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         addWorkout = (Button) findViewById(R.id.saveWorkout);
         createWorkoutPlan();
         cancelWorkout();
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("workoutPlan", workoutPlan);
+        String date = getIntent().getStringExtra("date");
     }
 
     private void cancelWorkout(){

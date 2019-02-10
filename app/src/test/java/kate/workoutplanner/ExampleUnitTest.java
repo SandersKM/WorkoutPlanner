@@ -1,6 +1,7 @@
 package kate.workoutplanner;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,6 +56,13 @@ public class ExampleUnitTest {
     public void daysOfWeekLength(){
         DaysOfWeek dow = new DaysOfWeek();
         assertEquals(dow.sortedWeekdays().length, 8);
+    }
+
+    @Test
+    public void datesArrayToday_isCorrect(){
+        DaysOfWeek dow = new DaysOfWeek();
+        String[] dates = dow.getDates();
+        assertEquals(dates[0], new Date().toString());
     }
 
     @Test
