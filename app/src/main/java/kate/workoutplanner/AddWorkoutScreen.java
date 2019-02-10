@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private WorkoutPlan workoutPlan;
     private String date;
     List<String> savedExerciseItems;
+    List<String> savedExerciseItemIDs;
     WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
 
     @Override
@@ -46,11 +49,30 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     private void viewWorkoutPlan(){
         workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
-        //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        savedExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
+        getDatabaseUpdate();
         ArrayAdapter workoutSelectionAdapter = getAdapter(savedExerciseItems);
         workoutSelectionAdapter.notifyDataSetChanged();
+    }
+
+    private void deleteCheckedItems(){
+        SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
+        ArrayList<String> selectedItems = new ArrayList<String>();
+        ArrayList<String> selectedExercies = new ArrayList<String>();
+        for (int i = 0; i < checked.size(); i++) {
+            // Item position in adapter
+            int position = checked.keyAt(i);
+            // Add sport if it is checked i.e.) == TRUE!
+            if (checked.valueAt(i))
+                selectedItems.add(savedExerciseItemIDs.get(i));
+                selectedExercies.add(savedExerciseItems.get(i));
+        }
+
+    }
+
+    private void getDatabaseUpdate(){
+        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
+        savedExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
+        savedExerciseItemIDs = databaseAccess.getIdsForDate(date);
     }
 
     private void cancelWorkout(){

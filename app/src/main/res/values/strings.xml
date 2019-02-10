@@ -11,9 +11,9 @@
     <string name="_0">0</string>
     <string name="button">Button</string>
     <string name="add_exercise_to_workout">Add Exercise to Workout</string>
-    <string name="save_workout">Save Workout</string>
     <string name="cancel">cancel</string>
     <string name="Cancel">Cancel</string>
     <string name="workout_plan">Workout Plan</string>
     <string name="edit_today_s_workout">EDIT TODAY\'S WORKOUT</string>
+    <string name="save_workout">Save Workout</string>
 </resources>

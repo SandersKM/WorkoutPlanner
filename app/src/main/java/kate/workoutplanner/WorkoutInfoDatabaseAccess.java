@@ -110,6 +110,7 @@ public class WorkoutInfoDatabaseAccess {
         return list;
     }
 
+    // https://stackoverflow.com/questions/9599741/how-to-delete-all-record-from-table-in-sqlite-with-android
     public void deleteAll(){
         this.open();
         database.execSQL("delete from workoutInfo");
