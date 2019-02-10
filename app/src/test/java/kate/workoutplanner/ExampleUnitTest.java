@@ -1,28 +1,28 @@
 package kate.workoutplanner;
 
-import android.content.Context;
-import android.util.Log;
+import android.provider.Telephony;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+
+import androidx.test.InstrumentationRegistry;
+
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class ExampleUnitTest{
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
@@ -93,11 +93,5 @@ public class ExampleUnitTest {
     }
 
 
-
-    //@Test
-    //public void databaseRetrievalContains_Back(){
-    //    System.out.print(test());
-    //    assertFalse(false);
-    //}
 }
 
