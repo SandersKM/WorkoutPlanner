@@ -262,7 +262,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
     public void enableAddExerciseButton(){
         addToWorkout.setEnabled(true);
         addToWorkout.setText("Add Exercise to Workout");
-        addToWorkout.setBackgroundColor(Color.GREEN);
+        addToWorkout.setBackgroundColor(Color.parseColor("#FF067687"));
     }
 
     public void disableAddExerciseButton(){

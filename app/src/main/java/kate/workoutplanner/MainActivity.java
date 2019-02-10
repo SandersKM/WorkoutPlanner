@@ -2,6 +2,8 @@ package kate.workoutplanner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,9 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.github.jinatonic.confetti.CommonConfetti;
+import com.github.jinatonic.confetti.ConfettoGenerator;
+import com.github.jinatonic.confetti.Utils;
+import com.github.jinatonic.confetti.confetto.BitmapConfetto;
+import com.github.jinatonic.confetti.confetto.Confetto;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
