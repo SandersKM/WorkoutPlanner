@@ -1,5 +1,6 @@
 package kate.workoutplanner;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class AddWorkoutScreen extends AppCompatActivity {
         viewWorkoutPlan();
         createWorkoutPlan();
         cancelWorkout();
+        deleteCheckedItems();
     }
 
     private void viewWorkoutPlan(){
@@ -55,18 +57,30 @@ public class AddWorkoutScreen extends AppCompatActivity {
     }
 
     private void deleteCheckedItems(){
-        SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
-        ArrayList<String> selectedItems = new ArrayList<String>();
-        ArrayList<String> selectedExercies = new ArrayList<String>();
-        for (int i = 0; i < checked.size(); i++) {
-            // Item position in adapter
-            int position = checked.keyAt(i);
-            // Add sport if it is checked i.e.) == TRUE!
-            if (checked.valueAt(i))
-                selectedItems.add(savedExerciseItemIDs.get(i));
-                selectedExercies.add(savedExerciseItems.get(i));
-        }
+        Button deleteChecked = findViewById(R.id.deleteButton);
+        deleteChecked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = getWorkoutInfoDatabaseAccess();
+                workoutInfoDatabaseAccess.deleteExercisesFromWorkout(getChecked());
+                viewWorkoutPlan();
+            }
+        });
+    }
 
+    private String[] getChecked(){
+        SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
+        String[] selectedItems = new String[checked.size()];
+        //ArrayList<String> selectedExercies = new ArrayList<String>();
+        for (int i = 0; i < checked.size(); i++) {
+            int position = checked.keyAt(i);
+            if (checked.valueAt(i))
+                selectedItems[i] = savedExerciseItemIDs.get(i);
+            //selectedExercies.add(savedExerciseItems.get(i));
+        }
+        Log.e("SAVED", String.valueOf(savedExerciseItemIDs.toString()));
+        //Log.e("SAVED", String.valueOf(savedExerciseItems.get(0)));
+        return selectedItems;
     }
 
     private void getDatabaseUpdate(){
@@ -201,9 +215,8 @@ public class AddWorkoutScreen extends AppCompatActivity {
         return databaseAccess;
     }
 
+    // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
     private ArrayAdapter getArrayAdapter(List<String> display){
-        // The following code was adapted from
-        // http://www.java2s.com/Code/Android/UI/FilldatatoSpinnerwithArrayAdapter.htm
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, display);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
