@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         todaysWorkout = findViewById(R.id.todaysWorkoutView);
-        //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
         List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(dates[0]);
         final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
                 (this, android.R.layout.simple_list_item_multiple_choice,

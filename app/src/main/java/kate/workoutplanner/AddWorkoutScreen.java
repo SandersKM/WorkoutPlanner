@@ -1,6 +1,5 @@
 package kate.workoutplanner;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +13,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -32,15 +29,27 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private String exerciseName;
     private WorkoutPlan workoutPlan;
     private String date;
+    WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_workout_screen);
         date = getIntent().getStringExtra("date");
-        addWorkout = (Button) findViewById(R.id.saveWorkout);
+        workoutPlanDisplay = (ListView) findViewById(R.id.workoutSelection);
+        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        viewWorkoutPlan();
         createWorkoutPlan();
         cancelWorkout();
+    }
+
+    private void viewWorkoutPlan(){
+        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
+        //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
+        List<String> todaysExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
+        ArrayAdapter workoutSelectionAdapter = getAdapter(todaysExerciseItems);
+        workoutSelectionAdapter.notifyDataSetChanged();
     }
 
     private void cancelWorkout(){
@@ -55,11 +64,17 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     private void createWorkoutPlan(){
         workoutPlan = new WorkoutPlan();
-        workoutPlanDisplay = (ListView) findViewById(R.id.workoutSelection);
-        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         addToWorkout = (Button) findViewById(R.id.addExerciseToWorkout);
         setExerciseItemComponents();
         updateWorkoutPlan();
+    }
+
+    public ArrayAdapter<String> getAdapter(List<String> list){
+        final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
+                (AddWorkoutScreen.this, android.R.layout.simple_list_item_multiple_choice,
+                        list);
+        workoutPlanDisplay.setAdapter(workoutSelectionAdapter);
+        return workoutSelectionAdapter;
     }
 
     // is there a way to break this down more
@@ -67,20 +82,12 @@ public class AddWorkoutScreen extends AppCompatActivity {
         // The following code was modified from
         // https://android--code.blogspot.com/2015/08/android-listview-add-items.html
         final List < String > AddWorkoutElements = workoutPlan.getWorkoutPlan_asStrings();
-        final ArrayAdapter < String > workoutSelectionAdapter = new ArrayAdapter < String >
-                (AddWorkoutScreen.this, android.R.layout.simple_list_item_multiple_choice,
-                        AddWorkoutElements);
-        workoutPlanDisplay.setAdapter(workoutSelectionAdapter);
         addToWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ExerciseItem exerciseItem = setExerciseItem();
                 addExerciseItemToDatabase(exerciseItem);
-                AddWorkoutElements.add(exerciseItem.getExerciseItemText());
-                workoutPlan.addExerciseItem(exerciseItem);
-                System.out.println(workoutPlan.getWorkoutPlan_asStrings());
-                System.out.println(AddWorkoutElements);
-                workoutSelectionAdapter.notifyDataSetChanged();
+                viewWorkoutPlan();
             }
         });
     }
