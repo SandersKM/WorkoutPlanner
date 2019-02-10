@@ -37,19 +37,20 @@ public class AddWorkoutScreen extends AppCompatActivity {
         setContentView(R.layout.activity_add_workout_screen);
         date = getIntent().getStringExtra("date");
         workoutPlanDisplay = (ListView) findViewById(R.id.workoutSelection);
-        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        //workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         viewWorkoutPlan();
         createWorkoutPlan();
         cancelWorkout();
     }
 
     private void viewWorkoutPlan(){
-        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        workoutPlanDisplay.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
         //WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
         List<String> todaysExerciseItems = databaseAccess.getWorkoutPlanForDate(date);
         ArrayAdapter workoutSelectionAdapter = getAdapter(todaysExerciseItems);
         workoutSelectionAdapter.notifyDataSetChanged();
+  
     }
 
     private void cancelWorkout(){

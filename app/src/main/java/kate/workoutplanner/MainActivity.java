@@ -16,9 +16,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
-    private Button forward;
     private Button[] weekOfWorkouts;
-    private WorkoutPlan[] workouts;
     private ListView todaysWorkout;
     private String[] dates;
     DaysOfWeek dow;
@@ -30,16 +28,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // Get the application context
         mContext = getApplicationContext();
-        Intent intent = this.getIntent();
-
         workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
-        WorkoutPlan workoutPlan = (WorkoutPlan) intent.getSerializableExtra("myWorkout");
         dow = new DaysOfWeek();
         dates = dow.getDates();
         initializeButtons();
-
-
-        // TODO for loop to populate dayViews
     }
 
     private void initializeButtons() {
