@@ -20,6 +20,8 @@ import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AddWorkoutScreen extends AppCompatActivity {
@@ -102,15 +104,15 @@ public class AddWorkoutScreen extends AppCompatActivity {
         });
     }
 
-    private String[] getChecked(){
+    private List<String> getChecked(){
         SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
-        String[] selectedItems = new String[checked.size()];
-        for (int i = 0; i < checked.size(); i++) {
-            int position = checked.keyAt(i);
-            if (checked.valueAt(i))
-                selectedItems[i] = savedExerciseItemIDs.get(i);
+        Log.e("SAVED", String.valueOf(checked.toString()));
+        List<String> selectedItems = new ArrayList<String>();
+        for (int i = 0; i < savedExerciseItemIDs.size(); i++) {
+            if (checked.get(i,false)) {
+                selectedItems.add(savedExerciseItemIDs.get(i));
+            }
         }
-        Log.e("SAVED", String.valueOf(savedExerciseItemIDs.toString()));
         return selectedItems;
     }
 

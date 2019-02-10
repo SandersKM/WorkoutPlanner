@@ -60,12 +60,12 @@ public class WorkoutInfoDatabaseAccess {
         return getQuery(sqlQuery);
     }
 
-    public void deleteExercisesFromWorkout(String[] selectionArgs){
+    public void deleteExercisesFromWorkout(List<String> selectionArgs){
         this.open();
         String selection = "id LIKE ?";
         String[] arg = new String[1];
-        for(int i = 0; i < selectionArgs.length; i++){
-            arg[0] = selectionArgs[i];
+        for(int i = 0; i < selectionArgs.size(); i++){
+            arg[0] = selectionArgs.get(i);
             int deletedRows = database.delete("workoutInfo", selection, arg);
         }
         this.close();
