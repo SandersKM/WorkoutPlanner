@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] dates;
     DaysOfWeek dow;
     WorkoutInfoDatabaseAccess workoutInfoDatabaseAccess;
+    List<String> selectedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         workoutInfoDatabaseAccess = WorkoutInfoDatabaseAccess.getInstance(this, null);
+        selectedItems = new ArrayList<String>();
         setDates();
         initializeButtons();
         viewTodaysWorkout();
@@ -36,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         viewTodaysWorkout();
         setButtonText();
+        setChecked();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getChecked();
     }
 
     public void viewTodaysWorkout(){
         todaysWorkout = findViewById(R.id.todaysWorkoutView);
-        Log.e("DATE", String.valueOf(dates[0]));
         List<String> todaysExerciseItems = workoutInfoDatabaseAccess.getWorkoutPlanForDate(dates[0]);
         final ArrayAdapter< String > workoutDisplayAdapter = new ArrayAdapter < String >
                 (this, android.R.layout.simple_list_item_multiple_choice,
@@ -91,12 +101,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void setButtonText(){
         for(int i = 1; i< weekOfWorkouts.length; i++){
-            Log.e("DEBUG", dates[i]);
             // https://stackoverflow.com/questions/25852961/how-to-remove-brackets-character-in-string-java
             String numExercises = workoutInfoDatabaseAccess.getExerciseCountForDate(dates[i])
                     .toString().replaceAll("[\\[\\]]","");
             String text = dates[i] + "\nExercises: " +  numExercises;
             weekOfWorkouts[i].setText(text);
+        }
+    }
+
+    private void setChecked(){
+        List<String> savedExerciseItemIDs = workoutInfoDatabaseAccess.getIdsForDate(dates[0]);
+        for(int i = 0; i < savedExerciseItemIDs.size(); i++){
+            if(selectedItems.contains(savedExerciseItemIDs.get(i))){
+                todaysWorkout.setItemChecked(i, true);
+            }
+        }
+    }
+
+    private void getChecked(){
+        SparseBooleanArray checked = todaysWorkout.getCheckedItemPositions();
+        selectedItems = new ArrayList<String>();
+        List<String> savedExerciseItemIDs = workoutInfoDatabaseAccess.getIdsForDate(dates[0]);
+        for (int i = 0; i < savedExerciseItemIDs.size(); i++) {
+            if (checked.get(i,false)) {
+                selectedItems.add(savedExerciseItemIDs.get(i));
+            }
         }
     }
 

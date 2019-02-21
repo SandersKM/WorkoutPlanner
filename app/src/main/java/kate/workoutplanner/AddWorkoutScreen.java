@@ -4,11 +4,8 @@ import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +13,6 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
@@ -106,7 +102,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
 
     private List<String> getChecked(){
         SparseBooleanArray checked = workoutPlanDisplay.getCheckedItemPositions();
-        Log.e("SAVED", String.valueOf(checked.toString()));
         List<String> selectedItems = new ArrayList<String>();
         for (int i = 0; i < savedExerciseItemIDs.size(); i++) {
             if (checked.get(i,false)) {
@@ -132,7 +127,6 @@ public class AddWorkoutScreen extends AppCompatActivity {
     private void addExerciseItemToDatabase(ExerciseItem exerciseItem){
         WorkoutInfoDatabaseAccess databaseAccess = getWorkoutInfoDatabaseAccess();
         boolean ok = databaseAccess.addExerciseToWorkout(exerciseItem);
-        Log.e("DB_working", String.valueOf(ok));
     }
 
     private WorkoutInfoDatabaseAccess getWorkoutInfoDatabaseAccess(){
